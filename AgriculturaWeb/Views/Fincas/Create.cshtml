@@ -1,0 +1,50 @@
+﻿@model AgriculturaWeb.Models.Finca
+
+@{
+    ViewBag.Title = "Crear Finca";
+}
+
+<h2>Crear Nueva Finca</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <!-- Campo: Nombre -->
+        <div class="form-group">
+            <label class="control-label col-md-2">Nombre</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", placeholder = "Ej. Finca Las Flores" })
+                @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!-- Campo: Área -->
+        <div class="form-group">
+            <label class="control-label col-md-2">Área (ha)</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.AreaHa, new { @class = "form-control", type = "number", step = "0.01", placeholder = "Ej. 10.5" })
+                @Html.ValidationMessageFor(m => m.AreaHa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!-- Campo: Ubicación (texto libre) -->
+        <div class="form-group">
+            <label class="control-label col-md-2">Ubicación</label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Ubicacion, new { @class = "form-control", placeholder = "Ej. San Marcos, Malacatán" })
+                @Html.ValidationMessageFor(m => m.Ubicacion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-success" />
+                @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-secondary ml-2" })
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,55 @@
+﻿@model AgriculturaWeb.Models.Empleado
+@{
+    ViewBag.Title = "Editar Empleado";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4><i class="fa-solid fa-user-pen"></i> Editar Empleado</h4>
+        </div>
+
+        <div class="card-body">
+            @using (Html.BeginForm("Edit", "Empleados", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.IdEmpleado)
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Nombres</label>
+                        @Html.TextBoxFor(m => m.Nombres, new { @class = "form-control", required = "required" })
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Apellidos</label>
+                        @Html.TextBoxFor(m => m.Apellidos, new { @class = "form-control", required = "required" })
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="form-label">DPI</label>
+                        @Html.TextBoxFor(m => m.DPI, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Teléfono</label>
+                        @Html.TextBoxFor(m => m.Telefono, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Fecha de Ingreso</label>
+                        @Html.TextBoxFor(m => m.FechaIngreso, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                    </div>
+                </div>
+
+                <div class="text-end mt-4">
+                    <a href="@Url.Action("Index", "Empleados")" class="btn btn-secondary">
+                        <i class="fa-solid fa-arrow-left"></i> Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-save"></i> Guardar Cambios
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

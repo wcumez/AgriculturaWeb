@@ -1,0 +1,55 @@
+﻿@model AgriculturaWeb.Models.MovimientoInventario
+
+@{
+    ViewBag.Title = "Nuevo Movimiento";
+}
+
+<h2>Registrar Movimiento</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label>Almacén</label>
+        <select name="IdAlmacen" class="form-control" required>
+            <option value="">Seleccione</option>
+            @foreach (var a in ViewBag.Almacenes)
+            {
+                <option value="@a.IdAlmacen">@a.Nombre</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Producto</label>
+        <select name="IdProducto" class="form-control" required>
+            <option value="">Seleccione</option>
+            @foreach (var p in ViewBag.Productos)
+            {
+                <option value="@p.IdProducto">@p.Nombre</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Tipo de Movimiento</label>
+        <select name="Tipo" class="form-control" required>
+            <option value="Entrada">Entrada</option>
+            <option value="Salida">Salida</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Cantidad</label>
+        <input type="number" step="0.01" name="Cantidad" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label>Referencia</label>
+        <input type="text" name="Referencia" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar</button>
+    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+}

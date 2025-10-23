@@ -1,0 +1,238 @@
+﻿@{
+    ViewBag.Title = "Iniciar Sesión";
+    Layout = null; // pantalla independiente
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Iniciar Sesión - AgriculturaWeb</title>
+
+    <!-- Bootstrap y FontAwesome -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        /* ======== Fondo general ======== */
+   body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: url('@Url.Content("~/Content/images/fondo.jpg")') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    color: white;
+}
+
+
+        .overlay {
+            background: rgba(0, 0, 0, 0.55);
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .login-wrapper {
+            position: relative;
+            z-index: 2;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .container-flex {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            width: 90%;
+            max-width: 1100px;
+        }
+
+        /* ======== Panel de bienvenida ======== */
+        .welcome-text {
+            color: white;
+            text-align: left;
+            max-width: 500px;
+            padding-right: 40px;
+        }
+
+        .welcome-text h1 {
+            font-size: 52px;
+            font-weight: 800;
+        }
+
+        .welcome-text p {
+            font-size: 16px;
+            margin-top: 15px;
+            line-height: 1.5;
+            max-width: 400px;
+        }
+
+        .social-icons a {
+            color: white;
+            margin-right: 15px;
+            font-size: 22px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #198754;
+        }
+
+        /* ======== Tarjeta de login ======== */
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 40px 35px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            color: #333;
+            width: 380px;
+        }
+
+        .login-card h3 {
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+            color: #198754;
+        }
+
+        .login-card small {
+            display: block;
+            text-align: center;
+            margin-bottom: 25px;
+            color: #777;
+        }
+
+        .form-control {
+            border-radius: 10px;
+        }
+
+        .btn-login {
+            width: 100%;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .text-small {
+            font-size: 13px;
+            color: #777;
+        }
+
+        .text-small a {
+            text-decoration: none;
+            color: #198754;
+        }
+
+        .text-small a:hover {
+            text-decoration: underline;
+        }
+
+        /* ======== Responsivo ======== */
+        @@media (max-width: 992px) {
+            .container-flex {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .welcome-text {
+                padding-right: 0;
+                text-align: center;
+                margin-bottom: 40px;
+            }
+
+            .welcome-text h1 {
+                font-size: 42px;
+            }
+
+            .welcome-text p {
+                margin: 0 auto;
+            }
+
+            .social-icons {
+                justify-content: center;
+                display: flex;
+            }
+
+            .login-card {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+
+        @@media (max-width: 576px) {
+            .welcome-text h1 {
+                font-size: 32px;
+            }
+
+            .welcome-text p {
+                font-size: 14px;
+            }
+
+            .login-card {
+                padding: 30px 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="overlay"></div>
+
+    <div class="login-wrapper">
+        <div class="container-flex">
+
+            <!-- Texto de bienvenida -->
+            <div class="welcome-text">
+                <h1>ANGE</h1>
+                <p>Gestiona tus fincas y cultivos de forma inteligente con <b>AgriculturaWeb</b>. Ingresa para continuar administrando tu producción de manera eficiente.</p>
+
+                
+            </div>
+
+            <!-- Formulario -->
+            <div class="login-card">
+                <h3>Iniciar Sesión</h3>
+                <small>Accede a tu cuenta</small>
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger text-center">@ViewBag.Error</div>
+                }
+
+                @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+                {
+                    <div class="form-group mb-3">
+                        <label for="usuario">Usuario</label>
+                        <input type="text" name="usuario" id="usuario" class="form-control" placeholder="Ingrese su usuario" required />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="contrasena">Contraseña</label>
+                        <input type="password" name="contrasena" id="contrasena" class="form-control" placeholder="Ingrese su contraseña" required />
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="remember">
+                        <label class="form-check-label" for="remember">Recordarme</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-success btn-login">Ingresar</button>
+                }
+
+                <p class="text-center mt-3 text-small">
+                    <a href="#">¿Olvidó su contraseña?</a>
+                </p>
+
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>

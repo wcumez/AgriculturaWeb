@@ -1,0 +1,43 @@
+﻿@model IEnumerable<AgriculturaWeb.Models.MovimientoInventario>
+
+@{
+    ViewBag.Title = "Inventario - Movimientos";
+}
+
+<h2>Movimientos de Inventario</h2>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">@TempData["Mensaje"]</div>
+}
+
+<p>
+    @Html.ActionLink("Nuevo Movimiento", "Create", null, new { @class = "btn btn-success" })
+    @Html.ActionLink("Ver Stock Actual", "Stock", null, new { @class = "btn btn-info ml-2" })
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Almacén</th>
+            <th>Producto</th>
+            <th>Tipo</th>
+            <th>Cantidad</th>
+            <th>Referencia</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>@m.Fecha.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@m.Almacen</td>
+                <td>@m.Producto</td>
+                <td>@m.Tipo</td>
+                <td>@m.Cantidad</td>
+                <td>@m.Referencia</td>
+            </tr>
+        }
+    </tbody>
+</table>

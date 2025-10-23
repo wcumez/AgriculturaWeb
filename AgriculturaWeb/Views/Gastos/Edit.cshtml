@@ -1,0 +1,51 @@
+﻿@model AgriculturaWeb.Models.Gasto
+
+@{
+    ViewBag.Title = "Editar Gasto";
+}
+
+<h2>Editar Gasto</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.IdGasto)
+
+    <div class="form-group">
+        <label>Categoría</label>
+        <select name="IdCategoriaGasto" class="form-control">
+            @foreach (var cat in ViewBag.Categorias)
+            {
+                <option value="@cat.IdCategoriaGasto" @(cat.IdCategoriaGasto == Model.IdCategoriaGasto ? "selected" : "")>@cat.Nombre</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Finca</label>
+        <select name="IdFinca" class="form-control">
+            @foreach (var finca in ViewBag.Fincas)
+            {
+                <option value="@finca.IdFinca" @(finca.IdFinca == Model.IdFinca ? "selected" : "")>@finca.Nombre</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Fecha</label>
+        <input type="date" name="Fecha" class="form-control" value="@Model.Fecha.ToString("yyyy-MM-dd")" required />
+    </div>
+
+    <div class="form-group">
+        <label>Monto (Q)</label>
+        <input type="number" step="0.01" name="Monto" value="@Model.Monto" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label>Descripción</label>
+        <textarea name="Descripcion" class="form-control" rows="2">@Model.Descripcion</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+}

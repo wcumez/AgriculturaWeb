@@ -1,0 +1,29 @@
+﻿@model IEnumerable<AgriculturaWeb.Models.MovimientoInventario>
+
+@{
+    ViewBag.Title = "Stock Actual";
+}
+
+<h2>Stock Actual por Producto</h2>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Almacén</th>
+            <th>Stock Actual</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.Producto</td>
+                <td>@s.Almacen</td>
+                <td>@s.StockActual</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>@Html.ActionLink("← Volver", "Index", null, new { @class = "btn btn-secondary" })</p>

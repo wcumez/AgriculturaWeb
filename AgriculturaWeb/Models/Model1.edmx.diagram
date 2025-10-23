@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ec18e4793d7141e4a590cab5073ae660" Name="Diagram1" ZoomLevel="12">
+        <EntityTypeShape EntityType="AgriculturaDBModel.Almacen" Width="1.5" PointX="3" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.AplicacionFertilizante" Width="1.5" PointX="10.5" PointY="27.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.AplicacionPlaga" Width="1.5" PointX="10.5" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.AsignacionTarea" Width="1.5" PointX="13.5" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Banco" Width="1.5" PointX="8.25" PointY="55.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.CategoriaGasto" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.CategoriaIngreso" Width="1.5" PointX="3.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Cliente" Width="1.5" PointX="8.25" PointY="43.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.ClimaRegistro" Width="1.5" PointX="3" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Compra" Width="1.5" PointX="10.5" PointY="52.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Contrato" Width="1.5" PointX="13.5" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Cosecha" Width="1.5" PointX="10.5" PointY="35.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.CuentaBancaria" Width="1.5" PointX="10.5" PointY="55.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Cultivo" Width="1.5" PointX="3.75" PointY="34.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.DetalleCompra" Width="1.5" PointX="15.75" PointY="32.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.DetalleEnvio" Width="1.5" PointX="12.75" PointY="35.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.DetalleVenta" Width="1.5" PointX="12.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Empleado" Width="1.5" PointX="11.25" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Envio" Width="1.5" PointX="10.5" PointY="45" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Fertilizante" Width="1.5" PointX="8.25" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Finca" Width="1.5" PointX="0.75" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Gasto" Width="1.5" PointX="3" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Ingreso" Width="1.5" PointX="6" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Jornada" Width="1.5" PointX="13.5" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.LecturaSensor" Width="1.5" PointX="7.5" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Lote" Width="1.5" PointX="3" PointY="29.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Mantenimiento" Width="1.5" PointX="10.5" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Maquinaria" Width="1.5" PointX="8.25" PointY="35.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.MonitoreoSuelo" Width="1.5" PointX="5.25" PointY="28.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.MovimientoInventario" Width="1.5" PointX="5.25" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Pago" Width="1.5" PointX="12.75" PointY="48.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Plaga" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Producto" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Proveedor" Width="1.5" PointX="8.25" PointY="52.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Riego" Width="1.5" PointX="10.5" PointY="38.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Rol" Width="1.5" PointX="13.5" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Sensor" Width="1.5" PointX="5.25" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Siembra" Width="1.5" PointX="8.25" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Tarea" Width="1.5" PointX="11.25" PointY="41.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Temporada" Width="1.5" PointX="6" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Transporte" Width="1.5" PointX="8.25" PointY="46.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Tratamiento" Width="1.5" PointX="8.25" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Ubicacion" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.UsoMaquinaria" Width="1.5" PointX="10.5" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Usuario" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Variedad" Width="1.5" PointX="6" PointY="34.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgriculturaDBModel.Venta" Width="1.5" PointX="10.5" PointY="48.875" IsExpanded="true" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Almacen_Finca" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_MovInv_Almacen" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_ApFert_Fert" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_ApFert_Siembra" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_ApPlaga_Siembra" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_ApPlaga_Trat" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Asig_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Asig_Siembra" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Asig_Tarea" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Cuenta_Banco" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Gasto_Cat" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Ingreso_Cat" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Envio_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Venta_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Clima_Finca" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Compra_Proveedor" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_DetCompra_Compra" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Pago_Compra" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Contrato_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Cosecha_Siembra" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_DetEnvio_Cosecha" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Pago_Cuenta" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Variedad_Cultivo" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_DetCompra_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_DetEnvio_Envio" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_DetVenta_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_DetVenta_Venta" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Jornada_Empleado" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Envio_Transporte" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Gasto_Finca" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Ingreso_Finca" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Lote_Finca" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Gasto_Siembra" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Lectura_Sensor" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_MonSuelo_Lote" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Sensor_Lote" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Siembra_Lote" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Mant_Maq" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_UsoMaq_Maq" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_MovInv_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Pago_Venta" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Riego_Siembra" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Siembra_Temporada" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_Siembra_Variedad" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.FK_UsoMaq_Siembra" ManuallyRouted="false" />
+        <AssociationConnector Association="AgriculturaDBModel.EmpleadoRol" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<AgriculturaWeb.Models.Finca>
+
+@{
+    ViewBag.Title = "Fincas";
+}
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Mensaje"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<h2>Listado de Fincas</h2>
+
+<p>
+    @* Solo el Administrador puede crear nuevas fincas *@
+    @if (Session["Rol"] != null && Session["Rol"].ToString() == "Administrador")
+    {
+        @Html.ActionLink("Nueva Finca", "Create", null, new { @class = "btn btn-success" })
+    }
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Nombre</th>
+            <th>Área (ha)</th>
+            <th>Ubicación</th>
+            <th>Fecha Creación</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var f in Model)
+        {
+            <tr>
+                <td>@f.Nombre</td>
+                <td>@f.AreaHa</td>
+                <td>@f.Ubicacion</td>
+                <td>@f.FechaCreacion.ToShortDateString()</td>
+                <td style="width:200px;">
+                    @* Ambos roles (Admin y Empleado) pueden editar *@
+                    @Html.ActionLink("Editar", "Edit", new { id = f.IdFinca }, new { @class = "btn btn-primary btn-sm" })
+
+                    @* Solo el Administrador puede eliminar *@
+                    @if (Session["Rol"] != null && Session["Rol"].ToString() == "Administrador")
+                    {
+                        using (Html.BeginForm("Delete", "Fincas", new { id = f.IdFinca }, FormMethod.Post, new { @class = "d-inline" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('¿Eliminar finca @f.Nombre?');">
+                                Eliminar
+                            </button>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

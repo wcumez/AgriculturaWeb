@@ -1,0 +1,54 @@
+﻿@model AgriculturaWeb.Models.Empleado
+@{
+    ViewBag.Title = "Nuevo Empleado";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-success text-white">
+            <h4><i class="fa-solid fa-user-plus"></i> Registrar Nuevo Empleado</h4>
+        </div>
+
+        <div class="card-body">
+            @using (Html.BeginForm("Create", "Empleados", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Nombres</label>
+                        @Html.TextBoxFor(m => m.Nombres, new { @class = "form-control", placeholder = "Ingrese nombres", required = "required" })
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Apellidos</label>
+                        @Html.TextBoxFor(m => m.Apellidos, new { @class = "form-control", placeholder = "Ingrese apellidos", required = "required" })
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="form-label">DPI</label>
+                        @Html.TextBoxFor(m => m.DPI, new { @class = "form-control", placeholder = "Ingrese DPI", maxlength = "13" })
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Teléfono</label>
+                        @Html.TextBoxFor(m => m.Telefono, new { @class = "form-control", placeholder = "Ingrese teléfono", maxlength = "8" })
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Fecha de Ingreso</label>
+                        @Html.TextBoxFor(m => m.FechaIngreso, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", required = "required" })
+                    </div>
+                </div>
+
+                <div class="text-end mt-4">
+                    <a href="@Url.Action("Index", "Empleados")" class="btn btn-secondary">
+                        <i class="fa-solid fa-arrow-left"></i> Volver
+                    </a>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa-solid fa-floppy-disk"></i> Guardar
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+﻿@model AgriculturaWeb.Models.Cultivo
+
+@{
+    ViewBag.Title = "Editar Cultivo";
+}
+
+<h2>Editar Cultivo</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.IdCultivo)
+
+    <div class="form-horizontal">
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", placeholder = "Nombre del cultivo", required = "required" })
+                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-6">
+                <input type="submit" value="Actualizar" class="btn btn-primary" />
+                @Html.ActionLink("Volver al listado", "Index", null, new { @class = "btn btn-secondary" })
+            </div>
+        </div>
+    </div>
+}

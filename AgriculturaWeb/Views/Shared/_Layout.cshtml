@@ -1,0 +1,229 @@
+﻿@{
+    Layout = null;
+    string currentController = ViewContext.RouteData.Values["controller"].ToString();
+
+    // Variables para mostrar usuario y rol
+    var nombreUsuario = Session["Usuario"] != null ? Session["Usuario"].ToString() : "Invitado";
+    var rolUsuario = Session["Rol"] != null ? Session["Rol"].ToString() : "Sin rol";
+
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewBag.Title - AgriculturaWeb</title>
+
+    <!-- Bootstrap y FontAwesome -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background-color: #1b4332;
+            color: white;
+            flex-shrink: 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .sidebar.collapsed {
+            margin-left: -240px;
+        }
+
+        .sidebar .nav-link {
+            color: #d8f3dc;
+            font-weight: 500;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: #40916c;
+            color: white;
+        }
+
+        .sidebar .sidebar-header {
+            padding: 1.5rem;
+            text-align: center;
+            background-color: #081c15;
+        }
+
+        /* Contenido */
+        .content {
+            flex-grow: 1;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background-color: #40916c;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topbar button {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .topbar .user-info {
+            font-size: 0.9rem;
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            color: #999;
+            background-color: #f8f9fa;
+        }
+
+        @@media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                height: 100%;
+                z-index: 1000;
+            }
+
+            .sidebar.collapsed {
+                margin-left: -240px;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <nav id="sidebar" class="sidebar d-flex flex-column p-3">
+        <div class="sidebar-header">
+            <h4><i class="fa-solid fa-leaf"></i> AgriculturaWeb</h4>
+        </div>
+
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li>
+                <a href="@Url.Action("Index","Home")" class="nav-link @(currentController == "Home" ? "active" : "")">
+                    <i class="fa-solid fa-chart-line me-2"></i> Dashboard
+                </a>
+            </li>
+
+            <li><hr class="dropdown-divider" /></li>
+
+            <li>
+                <a href="@Url.Action("Index","Fincas")" class="nav-link @(currentController == "Fincas" ? "active" : "")">
+                    <i class="fa-solid fa-tree me-2"></i> Fincas
+                </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Index","Cultivos")" class="nav-link @(currentController == "Cultivos" ? "active" : "")">
+                    <i class="fa-solid fa-seedling me-2"></i> Cultivos
+                </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Index","Empleados")" class="nav-link @(currentController == "Empleados" ? "active" : "")">
+                    <i class="fa-solid fa-user me-2"></i> Empleados
+                </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Index","Ventas")" class="nav-link @(currentController == "Ventas" ? "active" : "")">
+                    <i class="fa-solid fa-hand-holding-dollar me-2"></i> Ventas
+                </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Index","Gastos")" class="nav-link @(currentController == "Gastos" ? "active" : "")">
+                    <i class="fa-solid fa-money-bill-trend-up me-2"></i> Gastos
+                </a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Index","Inventario")" class="nav-link @(currentController == "Inventario" ? "active" : "")">
+                    <i class="fa-solid fa-warehouse me-2"></i> Inventario
+                </a>
+            </li>
+
+            <li><hr class="dropdown-divider" /></li>
+
+            @* Mostrar “Usuarios” solo si el rol es Administrador *@
+            @if (rolUsuario == "Administrador")
+            {
+                <li>
+                    <a href="@Url.Action("Index","Usuarios")" class="nav-link @(currentController == "Usuarios" ? "active" : "")">
+                        <i class="fa-solid fa-users-gear me-2"></i> Usuarios
+                    </a>
+                </li>
+            }
+
+            <li>
+                <a href="@Url.Action("Logout","Login")" class="nav-link text-danger">
+                    <i class="fa-solid fa-right-from-bracket me-2"></i> Cerrar sesión
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Contenedor principal -->
+    <div class="content w-100">
+        <!-- Barra superior -->
+        <div class="topbar">
+            <button id="toggleSidebar"><i class="fa-solid fa-bars"></i></button>
+            <div><i class="fa-solid fa-sun"></i> Bienvenido al sistema agrícola</div>
+            <div class="user-info">
+                <i class="fa-solid fa-user"></i>
+                @nombreUsuario (@rolUsuario)
+            </div>
+        </div>
+
+        <!-- Contenido -->
+        <main>
+            @RenderBody()
+        </main>
+
+        <!-- Pie -->
+        <footer>
+            <small>© @DateTime.Now.Year AgriculturaWeb - Todos los derechos reservados</small>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const sidebar = document.getElementById("sidebar");
+        const toggleBtn = document.getElementById("toggleSidebar");
+
+        toggleBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("collapsed");
+        });
+    </script>
+
+
+    @RenderSection("scripts", required: false)
+
+
+</body>
+</html>

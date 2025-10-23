@@ -1,0 +1,39 @@
+﻿@model IEnumerable<AgriculturaWeb.Models.Cultivo>
+
+@{
+    ViewBag.Title = "Cultivos";
+}
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-info">@TempData["Mensaje"]</div>
+}
+
+<h2>Listado de Cultivos</h2>
+
+<p>
+    @Html.ActionLink("Nuevo Cultivo", "Create", null, new { @class = "btn btn-success" })
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.IdCultivo</td>
+                <td>@item.Nombre</td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.IdCultivo }, new { @class = "btn btn-primary btn-sm" }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdCultivo }, new { @class = "btn btn-danger btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
