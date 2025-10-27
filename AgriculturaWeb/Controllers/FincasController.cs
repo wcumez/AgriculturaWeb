@@ -104,25 +104,46 @@ namespace AgriculturaWeb.Controllers
             return RedirectToAction("Index");
         }
 
+
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            // Solo el administrador puede eliminar fincas
             if (Session["Rol"] == null || Session["Rol"].ToString() != "Administrador")
                 return RedirectToAction("Index");
 
-            using (var cn = Db.Conn())
+            try
             {
-                cn.Execute(
-                    "dbo.sp_Finca_Eliminar",
-                    new { IdFinca = id },
-                    commandType: System.Data.CommandType.StoredProcedure
-                );
+                using (var cn = Db.Conn())
+                {
+                    var parametros = new DynamicParameters();
+                    parametros.Add("@IdFinca", id, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
+                    parametros.Add("@Mensaje", dbType: System.Data.DbType.String, size: 200, direction: System.Data.ParameterDirection.Output);
+
+                    cn.Execute("dbo.sp_Finca_Eliminar", parametros, commandType: System.Data.CommandType.StoredProcedure);
+
+                    string mensaje = parametros.Get<string>("@Mensaje");
+
+                    // Guardamos el mensaje devuelto para mostrar en SweetAlert
+                    TempData["Mensaje"] = string.IsNullOrEmpty(mensaje)
+                        ? "❌ No se pudo procesar la solicitud."
+                        : mensaje;
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Mensaje"] = "❌ Error inesperado: " + ex.Message;
             }
 
-            TempData["Mensaje"] = "🗑️ Finca eliminada correctamente";
             return RedirectToAction("Index");
         }
+
+
+
+
+
+
     }
 }

@@ -1,51 +1,64 @@
 ﻿@model AgriculturaWeb.Models.Finca
-
-
-
 @{
     ViewBag.Title = "Editar Finca";
 }
 
-<h2>Editar Finca</h2>
+<div class="container mt-4">
+    <!-- Encabezado -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="text-success fw-bold">
+            <i class="fa-solid fa-pen-to-square me-2"></i>Editar Finca
+        </h3>
+        <a href="@Url.Action("Index", "Fincas")" class="btn btn-outline-secondary">
+            <i class="fa-solid fa-arrow-left"></i> Regresar
+        </a>
+    </div>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+    <!-- Formulario -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.IdFinca)
 
-    <div class="form-horizontal">
-        <hr />
-        @Html.HiddenFor(model => model.IdFinca)
+                <div class="mb-3">
+                    <label for="Nombre" class="form-label fw-semibold">Nombre de la Finca</label>
+                    @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", placeholder = "Ingrese el nombre de la finca" })
+                    @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nombre, "Nombre", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", placeholder = "Ingrese el nombre de la finca" })
-                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="mb-3">
+                    <label for="AreaHa" class="form-label fw-semibold">Área (ha)</label>
+                    @Html.TextBoxFor(m => m.AreaHa, new { @class = "form-control", type = "number", step = "0.01", placeholder = "Ingrese el área en hectáreas" })
+                    @Html.ValidationMessageFor(m => m.AreaHa, "", new { @class = "text-danger" })
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.AreaHa, "Área (ha)", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.AreaHa, new { @class = "form-control", placeholder = "Ingrese el área en hectáreas" })
-                @Html.ValidationMessageFor(model => model.AreaHa, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="mb-3">
+                    <label for="Ubicacion" class="form-label fw-semibold">Ubicación</label>
+                    @Html.TextBoxFor(m => m.Ubicacion, new { @class = "form-control", placeholder = "Ej. Jutiapa, Malacatán" })
+                    @Html.ValidationMessageFor(m => m.Ubicacion, "", new { @class = "text-danger" })
+                </div>
 
-        <div class="form-group">
-            @Html.Label("Ubicación", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Ubicacion, new { @class = "form-control", placeholder = "Ingrese la ubicación (municipio o zona)" })
-                @Html.ValidationMessageFor(model => model.Ubicacion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar Cambios" class="btn btn-success" />
-                @Html.ActionLink("Regresar al listado", "Index", null, new { @class = "btn btn-default" })
-            </div>
+                <div class="text-end mt-4">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa-solid fa-floppy-disk me-1"></i> Guardar Cambios
+                    </button>
+                    <a href="@Url.Action("Index", "Fincas")" class="btn btn-outline-secondary ms-2">
+                        <i class="fa-solid fa-xmark"></i> Cancelar
+                    </a>
+                </div>
+            }
         </div>
     </div>
+</div>
+
+@section scripts {
+    <script>
+        // animación opcional al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            const formCard = document.querySelector('.card');
+            formCard.classList.add('animate__animated', 'animate__fadeIn');
+        });
+    </script>
 }

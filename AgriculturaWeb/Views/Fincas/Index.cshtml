@@ -1,65 +1,132 @@
 ﻿@model IEnumerable<AgriculturaWeb.Models.Finca>
-
 @{
     ViewBag.Title = "Fincas";
 }
 
-@if (TempData["Mensaje"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        @TempData["Mensaje"]
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+<div class="container mt-4">
+    <!-- Encabezado -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="text-success fw-bold">
+            <i class="fa-solid fa-tree me-2"></i>Listado de Fincas
+        </h3>
+        <div>
+            <!-- Botón regresar al panel -->
+            <a href="@Url.Action("Index","Home")" class="btn btn-outline-secondary me-2">
+                <i class="fa-solid fa-arrow-left"></i> Regresar al Panel
+            </a>
+
+            <!-- Solo el Administrador puede crear nuevas fincas -->
+            @if (Session["Rol"] != null && Session["Rol"].ToString() == "Administrador")
+            {
+                @Html.ActionLink("Nueva Finca", "Create", null, new { @class = "btn btn-success" })
+            }
+        </div>
     </div>
+
+    <!-- Tarjeta con la tabla -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle text-center">
+                        <thead class="table-success">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Área (ha)</th>
+                                <th>Ubicación</th>
+                                <th>Fecha Creación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var f in Model)
+                            {
+                                <tr>
+                                    <td class="fw-semibold">@f.Nombre</td>
+                                    <td>@f.AreaHa</td>
+                                    <td>@f.Ubicacion</td>
+                                    <td>@f.FechaCreacion.ToShortDateString()</td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", new { id = f.IdFinca })" class="btn btn-outline-primary btn-sm me-2">
+                                            <i class="fa-solid fa-pen-to-square"></i> Editar
+                                        </a>
+
+                                        @if (Session["Rol"] != null && Session["Rol"].ToString() == "Administrador")
+                                        {
+                                            using (Html.BeginForm("Delete", "Fincas", new { id = f.IdFinca }, FormMethod.Post, new { @class = "form-eliminar d-inline" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                    <i class="fa-solid fa-trash"></i> Eliminar
+                                                </button>
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="text-center text-muted py-5">
+                    <i class="fa-solid fa-leaf fa-2x mb-3 text-success"></i>
+                    <p class="mb-0">No hay fincas registradas.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // Confirmación moderna con SweetAlert2
+        document.querySelectorAll('.form-eliminar').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: '¿Eliminar finca?',
+                    text: "Esta acción no se puede deshacer.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sí, eliminar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+
+        // Mostrar mensajes de resultado (éxito o error)
+        
+
+
+
+
+        @if (TempData["Mensaje"] != null)
+{
+    var mensaje = TempData["Mensaje"].ToString();
+    var icono = mensaje.StartsWith("✅") ? "success" : "error";
+
+    <text>
+        Swal.fire({
+            icon: '@icono',
+            title: 'Resultado',
+            text: '@mensaje.Replace("✅ ", "").Replace("❌ ", "")'
+        });
+    </text>
 }
 
-<h2>Listado de Fincas</h2>
 
-<p>
-    @* Solo el Administrador puede crear nuevas fincas *@
-    @if (Session["Rol"] != null && Session["Rol"].ToString() == "Administrador")
-    {
-        @Html.ActionLink("Nueva Finca", "Create", null, new { @class = "btn btn-success" })
-    }
-</p>
 
-<table class="table table-bordered table-striped">
-    <thead class="thead-dark">
-        <tr>
-            <th>Nombre</th>
-            <th>Área (ha)</th>
-            <th>Ubicación</th>
-            <th>Fecha Creación</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var f in Model)
-        {
-            <tr>
-                <td>@f.Nombre</td>
-                <td>@f.AreaHa</td>
-                <td>@f.Ubicacion</td>
-                <td>@f.FechaCreacion.ToShortDateString()</td>
-                <td style="width:200px;">
-                    @* Ambos roles (Admin y Empleado) pueden editar *@
-                    @Html.ActionLink("Editar", "Edit", new { id = f.IdFinca }, new { @class = "btn btn-primary btn-sm" })
 
-                    @* Solo el Administrador puede eliminar *@
-                    @if (Session["Rol"] != null && Session["Rol"].ToString() == "Administrador")
-                    {
-                        using (Html.BeginForm("Delete", "Fincas", new { id = f.IdFinca }, FormMethod.Post, new { @class = "d-inline" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-danger btn-sm"
-                                    onclick="return confirm('¿Eliminar finca @f.Nombre?');">
-                                Eliminar
-                            </button>
-                        }
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    </script>
+}

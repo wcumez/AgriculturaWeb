@@ -4,36 +4,81 @@
     ViewBag.Title = "Cultivos";
 }
 
-@if (TempData["Mensaje"] != null)
-{
-    <div class="alert alert-info">@TempData["Mensaje"]</div>
+<div class="container mt-4">
+    <!-- Encabezado -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="text-success fw-bold">
+            <i class="fa-solid fa-seedling me-2"></i>Listado de Cultivos
+        </h3>
+        <div>
+            <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary me-2">
+                <i class="fa-solid fa-arrow-left"></i> Regresar al Panel
+            </a>
+            <a href="@Url.Action("Create", "Cultivos")" class="btn btn-success">
+                <i class="fa-solid fa-plus"></i> Nuevo Cultivo
+            </a>
+        </div>
+    </div>
+
+    <!-- Mensaje de confirmación -->
+    @if (TempData["Mensaje"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+            <i class="fa-solid fa-circle-check me-2"></i>@TempData["Mensaje"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- Tabla -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle text-center">
+                        <thead class="table-success">
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.IdCultivo</td>
+                                    <td class="fw-semibold">@item.Nombre</td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", new { id = item.IdCultivo })" class="btn btn-outline-primary btn-sm me-2">
+                                            <i class="fa-solid fa-pen-to-square"></i> Editar
+                                        </a>
+                                        <a href="@Url.Action("Delete", new { id = item.IdCultivo })" class="btn btn-outline-danger btn-sm">
+                                            <i class="fa-solid fa-trash"></i> Eliminar
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="text-center text-muted py-5">
+                    <i class="fa-solid fa-leaf fa-2x mb-3 text-success"></i>
+                    <p class="mb-0">No hay cultivos registrados.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const card = document.querySelector('.card');
+            card.classList.add('animate__animated', 'animate__fadeIn');
+        });
+    </script>
 }
-
-<h2>Listado de Cultivos</h2>
-
-<p>
-    @Html.ActionLink("Nuevo Cultivo", "Create", null, new { @class = "btn btn-success" })
-</p>
-
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.IdCultivo</td>
-                <td>@item.Nombre</td>
-                <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.IdCultivo }, new { @class = "btn btn-primary btn-sm" }) |
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdCultivo }, new { @class = "btn btn-danger btn-sm" })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>

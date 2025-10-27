@@ -1,0 +1,85 @@
+﻿@model AgriculturaWeb.Models.Siembra
+@{
+    ViewBag.Title = "Editar Siembra";
+}
+
+<div class="card shadow-sm mt-4">
+    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+        <h5><i class="fa-solid fa-pen-to-square"></i> Editar Siembra</h5>
+        <a href="@Url.Action("Index")" class="btn btn-light btn-sm">
+            <i class="fa-solid fa-arrow-left"></i> Regresar al listado
+        </a>
+    </div>
+
+    <div class="card-body">
+        @using (Html.BeginForm("Edit", "Siembras", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.IdSiembra)
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Lote</label>
+                    @Html.DropDownListFor(m => m.IdLote,
+                        new SelectList(ViewBag.Lotes, "IdLote", "Nombre", Model.IdLote),
+                        new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-4">
+                    <label>Variedad</label>
+                    @Html.DropDownListFor(m => m.IdVariedad,
+                        new SelectList(ViewBag.Variedades, "IdVariedad", "Nombre", Model.IdVariedad),
+                        new { @class = "form-control" })
+                </div>
+
+                <div class="col-md-4">
+                    <label>Temporada</label>
+                    @Html.DropDownListFor(m => m.IdTemporada,
+                        new SelectList(ViewBag.Temporadas, "IdTemporada", "Nombre", Model.IdTemporada),
+                        new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label>Fecha de Siembra</label>
+                    @Html.TextBoxFor(m => m.FechaSiembra, "{0:yyyy-MM-dd}",
+                        new { @class = "form-control", type = "date" })
+                </div>
+
+                <div class="col-md-6">
+                    <label>Densidad de Plantas</label>
+                    @Html.TextBoxFor(m => m.DensidadPlantas,
+                        new { @class = "form-control", type = "number", step = "any", min = "0" })
+                </div>
+            </div>
+
+            <div class="mt-4 d-flex justify-content-end">
+                <button type="submit" class="btn btn-success me-2">
+                    <i class="fa-solid fa-floppy-disk"></i> Guardar Cambios
+                </button>
+                <a href="@Url.Action("Index")" class="btn btn-secondary">
+                    <i class="fa-solid fa-xmark"></i> Cancelar
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if (TempData["Mensaje"] != null)
+    {
+        var mensaje = TempData["Mensaje"].ToString();
+        var icono = (!string.IsNullOrEmpty(mensaje) && mensaje.StartsWith("✅")) ? "success" : "error";
+
+        <text>
+            Swal.fire({
+            icon: '@icono',
+            title: 'Resultado',
+            text: `@mensaje.Replace("✅ ", "").Replace("❌ ", "")`
+            });
+        </text>
+    }
+}

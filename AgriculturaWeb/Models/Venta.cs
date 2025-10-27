@@ -5,7 +5,6 @@
 
     public partial class Venta
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Venta()
         {
             this.DetalleVentas = new HashSet<DetalleVenta>();
@@ -14,17 +13,17 @@
 
         public int IdVenta { get; set; }
         public int IdCliente { get; set; }
-
         public string NombreCliente { get; set; }
-        public System.DateTime Fecha { get; set; }
+        public DateTime Fecha { get; set; }
         public decimal Total { get; set; }
 
-
-
         public virtual Cliente Cliente { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetalleVenta> DetalleVentas { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pago> Pagoes { get; set; }
+
+        // 👇 Propiedades extra para mostrar detalle de producto
+        public string NombreProducto { get; set; }
+        public decimal PrecioUnitario { get; set; }
+        public decimal Cantidad { get; set; }
     }
 }

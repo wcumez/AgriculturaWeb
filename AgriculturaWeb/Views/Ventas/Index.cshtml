@@ -1,43 +1,72 @@
 ﻿@model IEnumerable<AgriculturaWeb.Models.Venta>
 
 @{
-    ViewBag.Title = "Ventas";
+    ViewBag.Title = "Listado de Ventas";
 }
 
-@if (TempData["Mensaje"] != null)
-{
-    <div class="alert alert-info">@TempData["Mensaje"]</div>
-}
+<div class="container mt-4 mb-5">
+    <!-- Título y botones -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-success fw-bold">
+            <i class="fa-solid fa-dollar-sign me-2"></i> Listado de Ventas
+        </h2>
+        <div>
+            <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary me-2">
+                <i class="fa-solid fa-arrow-left"></i> Regresar al Panel
+            </a>
+            <a href="@Url.Action("Create", "Ventas")" class="btn btn-success">
+                <i class="fa-solid fa-plus"></i> Nueva Venta
+            </a>
+        </div>
+    </div>
 
-<h2>Listado de Ventas</h2>
+    <!-- Tabla -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <table class="table table-hover table-striped align-middle mb-0">
+                <thead class="table-success text-center">
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Total</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var v in Model)
+                        {
+                            <tr>
+                                <td>@v.IdVenta</td>
+                                <td>@v.NombreCliente</td>
+                                <td>@v.NombreProducto</td>
+                                <td>@v.Cantidad</td>
+                                <td>@($"Q{v.PrecioUnitario:0.00}")</td>
+                                <td>@($"Q{v.Total:0.00}")</td>
+                                <td>@v.Fecha.ToShortDateString()</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7" class="text-muted text-center py-3">
+                                <i class="fa-solid fa-circle-info text-secondary me-2"></i>
+                                No hay ventas registradas aún.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-<p>
-    @Html.ActionLink("Nueva Venta", "Create", null, new { @class = "btn btn-success" })
-</p>
-
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Cliente</th>
-            <th>Fecha</th>
-            <th>Total</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var v in Model)
-        {
-            <tr>
-                <td>@v.IdVenta</td>
-                <td>@v.NombreCliente</td>
-                <td>@v.Fecha.ToShortDateString()</td>
-                <td>@v.Total.ToString("C2")</td>
-                <td>
-                    @Html.ActionLink("Editar", "Edit", new { id = v.IdVenta }, new { @class = "btn btn-primary btn-sm" }) |
-                    @Html.ActionLink("Eliminar", "Delete", new { id = v.IdVenta }, new { @class = "btn btn-danger btn-sm" })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <!-- Pie -->
+    <div class="text-center mt-3">
+        <small class="text-muted">© @DateTime.Now.Year AgriculturaWeb — Módulo de Ventas</small>
+    </div>
+</div>

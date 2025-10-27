@@ -4,59 +4,88 @@
     ViewBag.Title = "Gestión de Usuarios";
 }
 
-<!-- Mensaje de confirmación -->
-@if (TempData["Mensaje"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
-        @TempData["Mensaje"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="container mt-4">
+    <!-- Encabezado -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="text-success fw-bold">
+            <i class="fa-solid fa-users-gear me-2"></i>Gestión de Usuarios
+        </h3>
+        <div>
+            <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary me-2">
+                <i class="fa-solid fa-arrow-left"></i> Regresar al Panel
+            </a>
+            <a href="@Url.Action("Create", "Usuarios")" class="btn btn-success">
+                <i class="fa-solid fa-user-plus"></i> Nuevo Usuario
+            </a>
+        </div>
     </div>
-}
 
-<div class="d-flex justify-content-between align-items-center mt-3 mb-3">
-    <h2><i class="fa-solid fa-users-gear text-success"></i> Usuarios del Sistema</h2>
-    @Html.ActionLink("Nuevo Usuario", "Create", null, new { @class = "btn btn-success" })
+    <!-- Mensaje de confirmación -->
+    @if (TempData["Mensaje"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+            <i class="fa-solid fa-circle-check me-2"></i>@TempData["Mensaje"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- Tabla de usuarios -->
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle text-center">
+                        <thead class="table-success">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Usuario</th>
+                                <th>Rol</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var u in Model)
+                            {
+                                <tr>
+                                    <td>@u.Nombre</td>
+                                    <td>@u.NombreUsuario</td>
+                                    <td>@u.Rol.Nombre</td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Usuarios", new { id = u.IdUsuario })" class="btn btn-outline-primary btn-sm me-2">
+                                            <i class="fa-solid fa-pen-to-square"></i> Editar
+                                        </a>
+
+                                        @using (Html.BeginForm("Delete", "Usuarios", new { id = u.IdUsuario }, FormMethod.Post, new { onsubmit = "return confirm('¿Seguro que desea eliminar al usuario " + u.NombreUsuario + "?');", style = "display:inline" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                <i class="fa-solid fa-trash"></i> Eliminar
+                                            </button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="text-center text-muted py-5">
+                    <i class="fa-solid fa-user-slash fa-2x mb-3 text-success"></i>
+                    <p class="mb-0">No hay usuarios registrados.</p>
+                </div>
+            }
+        </div>
+    </div>
 </div>
 
-<table class="table table-bordered table-hover shadow-sm">
-    <thead class="table-dark text-center">
-        <tr>
-            <th>Nombre</th>
-            <th>Usuario</th>
-            <th>Rol</th>
-            <th style="width:200px;">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (!Model.Any())
-        {
-            <tr>
-                <td colspan="4" class="text-center text-muted">No hay usuarios registrados.</td>
-            </tr>
-        }
-        else
-        {
-            foreach (var u in Model)
-            {
-                <tr>
-                    <td>@u.Nombre</td>
-                    <td>@u.NombreUsuario</td>
-                    <td>@u.Rol.Nombre</td>
-                    <td class="text-center">
-                        <a href="@Url.Action("Edit", "Usuarios", new { id = u.IdUsuario })" class="btn btn-primary btn-sm me-2">
-                            <i class="fa-solid fa-pen-to-square"></i> Editar
-                        </a>
-
-                        @using (Html.BeginForm("Delete", "Usuarios", new { id = u.IdUsuario }, FormMethod.Post, new { onsubmit = "return confirm('¿Seguro que desea eliminar al usuario " + u.NombreUsuario + "?');", style = "display:inline" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-danger btn-sm">
-                                <i class="fa-solid fa-trash"></i> Eliminar
-                            </button>
-                        }
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
+@section scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const card = document.querySelector('.card');
+            card.classList.add('animate__animated', 'animate__fadeIn');
+        });
+    </script>
+}
